@@ -7,6 +7,9 @@ import torch
 tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
 model = AutoModelForQuestionAnswering.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
 
+
+
+
 text = r"""
 We introduce a new language representation model called BERT, which stands for
 Bidirectional Encoder Representations from
@@ -28,29 +31,20 @@ Language model pre-training has been shown to
 be effective for improving many natural language
 processing tasks (Dai and Le, 2015; Peters et al.,
 2018a; Radford et al., 2018; Howard and Ruder,
-2018). These include sentence-level tasks such as
-natural language inference (Bowman et al., 2015;
-Williams et al., 2018) and paraphrasing (Dolan
-and Brockett, 2005), which aim to predict the relationships between sentences by analyzing them
-holistically, as well as token-level tasks such as
-named entity recognition and question answering,
-where models are required to produce fine-grained
-output at the token level (Tjong Kim Sang and
-De Meulder, 2003; Rajpurkar et al., 2016).
-There are two existing strategies for applying pre-trained language representations to downstream tasks: feature-based and fine-tuning. The
-feature-based approach, such as ELMo (Peters
-et al., 2018a), uses task-specific architectures that
-include the pre-trained representations as additional features. The fine-tuning approach, such as
 """
 
 questions = [
-    r"""how many do you experiments?
+    r"""how many did you experiments?
     """,
     r"""what is the bert?
     """,
     r"""what is the abbreviation of bert?
     """
 ]
+
+print(tokenizer(text,return_tensors="pt")['input_ids'])
+print(tokenizer(text,return_tensors="pt")['input_ids'].shape)
+
 
 for question in questions:
     inputs = tokenizer(question, text, add_special_tokens=True, return_tensors="pt")
